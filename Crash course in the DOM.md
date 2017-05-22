@@ -16,6 +16,10 @@ A special kind of node representing text between nodes.
 
 ### Attributes
 
+
+
+##### Attributes are Key / Value pairs
+
 Given this HTML:
 
 ```html
@@ -23,6 +27,33 @@ Given this HTML:
 ```
 
 `href="http://example.com"` and `target="_blank"` are attributes
+
+
+Some attributes can be boolean and appear to have no value. Their very presence is meaningful. For example:
+
+```html
+<input type="checkbox" checked />
+```
+
+
+##### data attributes
+
+The HTML spec forbids adding arbitrary attributes to any old DOM Node. So if you want a custom attribute prefix it with `data-`.
+
+For example:
+
+```html
+<ol>
+  <li class="blog-list-member" data-postId="159498">
+    …
+  </li>
+  <li class="blog-list-member" data-postId="264877">
+    …
+  </li>
+</ol>
+```
+
+
 
 ### Properties
 
@@ -39,7 +70,7 @@ console.log(checkbox.checked ? 'checkbox is checked :D' : 'checkbox is not check
 
 _NOTE while `checked` is both a property and an attribute, they're distinctly different despite being kept in sync._
 
-## Tree Strucutre
+## Tree Structure
 
 You can think of the DOM Tree as a series of nested objects.
 
@@ -136,7 +167,7 @@ node.querySelector('*[name="zipcode"]')
 ```
 
 
-### IDs add unessisary complexity
+### IDs Add Unessisary Complexity
 
 Prefer `querySelector` and `querySelectorAll` over `getElementById`
 
@@ -216,7 +247,7 @@ Stops the event from bubbling up any further.
 
 ### Event Bubbling
 
-Events always occur on a single target. Some events travel up the DOM. This is called bubbling. The even is trigger on the target element's parent node and then on that element's parent and so on until they reach the `HTML` AKA `document` element.
+Events always occur on a single target. Some events travel up the DOM. This is called bubbling. The event is triggered on the target element's parent node and then on that element's parent and so on until they reach the `HTML` AKA `document` element.
 
 ```html
 <div class="links">
@@ -239,26 +270,28 @@ document.querySelector('.links').addEventHandler('click', function(event){
 Avoid setting styles directly in your JavaScript like this:
 
 ```js
-
-var button = document.querySelector('button')
+var button = document.querySelector('.magic-button')
 button.addEventHandler('click', function(event){
   button.style.backgroundColor = 'red'
 })
+```
+
+instead use classNames:
+
+```js
+var button = document.querySelector('.toggle-button')
 button.addEventHandler('click', function(event){
-  button.style.backgroundColor = 'red'
+  if (button.classList.contains('toggle-button')){
+    button.classList.remove('magic-button-clicked')
+  }else{
+    button.classList.add('magic-button-clicked')
+  }
 })
+```
 
 
+## Chrome Developer Tools
 
-## Associating data with DOM Nodes
+When inspecting elements in the Chrome Developer Tools console you will often get and HTML like rendering. If you want to ensure a JavaScript Object view of these elements use `console.log(node)`
 
-
-Never store data on a DOM Node directly, use `node.dataset`
-
-
-## Console
-
-- `console.dir`
-- `$0`
-
-
+When using the Elements tab of the Chrome Developer Tools. Whatever element you can selected is made available in the console within the `$0` variable.
