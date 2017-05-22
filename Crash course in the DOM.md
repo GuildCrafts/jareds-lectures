@@ -14,7 +14,8 @@ The type of node: `div`, `a`, `span`, etc.
 
 A special kind of node representing text between nodes.
 
-### Attributes
+
+## Attributes
 
 
 
