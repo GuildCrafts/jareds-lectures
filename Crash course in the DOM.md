@@ -41,7 +41,10 @@ _NOTE while `checked` is both a property and an attribute, they're distinctly di
 
 ## Tree Strucutre
 
-You can think of the DOM Tree as a series of nexted objects.
+You can think of the DOM Tree as a series of nested objects.
+
+
+So this HTML:
 
 ```html
 <html>
@@ -52,8 +55,10 @@ You can think of the DOM Tree as a series of nexted objects.
 </html>
 ```
 
+Can be represented with this object structure:
+
 ```js
-var document = {
+var fakeDocument = {
   nodeType: 'html',
   childNodes: [
     {
@@ -87,20 +92,56 @@ var document = {
 
 
 
+
 ## Finding elements
 
-- `querySelector` and `querySelectorAll`
-- `NodeList` vs. `Array`
-- `id` vs. `class`
+AKA Querying the DOM
 
 
-### Prefer `querySelector` and `querySelectorAll` over `getElementById`
+You never need to use these:
+
+- `getElementById`
+- `getElementByClassName`
+- `getElementByTagName`
+- `getElementByName`
+
+because these do everything you need:
+
+- `querySelector` returns the first matching DOM Node
+- `querySelectorAll` returns a `NodeList` of all the matching DOM Nodes
 
 
+#### Querying by Id
 
-`querySelector` returns the first matching DOM Node
+```js
+node.querySelector('#the-button')
+```
 
-`querySelectorAll` return a `NodeList` of all the matching DOM Nodes
+#### Querying by ClassName
+
+```js
+node.querySelectorAll('.magic-button')
+```
+
+#### Querying by TagName
+
+```js
+node.querySelectorAll('div')
+```
+
+#### Querying by Name
+
+```js
+node.querySelector('*[name="zipcode"]')
+```
+
+
+### IDs add unessisary complexity
+
+Prefer `querySelector` and `querySelectorAll` over `getElementById`
+
+
+### `NodeList` is not an `Array`
 
 Since a `NodeList` is not an `Array` we cannot do:
 
