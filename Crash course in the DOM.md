@@ -4,11 +4,15 @@
 
 ### DOM Node
 
-AKA Element. A single node in the HTML DOM tree
+AKA Element. A single node in the HTML DOM tree.
 
 ### Node Type
 
 The type of node: `div`, `a`, `span`, etc.
+
+### Text Node
+
+A special kind of node representing text between nodes.
 
 ### Attributes
 
@@ -33,6 +37,7 @@ console.log(checkbox.checked ? 'checkbox is checked :D' : 'checkbox is not check
 
 `checked` of `checkbox.checked` is a property of the DOMNode in the `checkbox` variable.
 
+_NOTE while `checked` is both a property and an attribute, they're distinctly different despite being kept in sync._
 
 ## Tree Strucutre
 
@@ -79,6 +84,9 @@ var document = {
 ```
 
 
+
+
+
 ## Finding elements
 
 - `querySelector` and `querySelectorAll`
@@ -86,16 +94,130 @@ var document = {
 - `id` vs. `class`
 
 
+### Prefer `querySelector` and `querySelectorAll` over `getElementById`
+
+
+
+`querySelector` returns the first matching DOM Node
+
+`querySelectorAll` return a `NodeList` of all the matching DOM Nodes
+
+Since a `NodeList` is not an `Array` we cannot do:
+
+```js
+document.querySelectorAll('.magic-button').forEach(function(button){
+  button.addEventHandler('click', onMagicButtonClick)
+})
+```
+
+instead we have to convert the `NodeList` into an `Array`. Like this:
+
+
+```js
+Array.from(document.querySelectorAll('.magic-button')).forEach(function(button){
+  button.addEventHandler('click', onMagicButtonClick)
+})
+```
+
+
+
 ## DOM events
 
-- use `addEventHandler` in favor or properties or attributes
-- bubbling
-- `event.preventDefault()`
-- `event.stopPropagation()`
+### Binding
+
+Prefer `addEventHandler` over event properties or attributes
+
+You should prefer to do this:
+
+```js
+var pandaNode = document.querySelector('.panda')
+pandaNode.addEventHandler('click', function(event){
+  …
+})
+```
+
+over this:
+
+```js
+var pandaNode = document.querySelector('.panda')
+pandaNode.onclick = function(event){
+  …
+}
+```
+
+and definitely never ever do this:
+
+```html
+<body>
+  <script type="text/javascript">
+    function onPandaClick(){
+      …
+    }
+  </script>
+  <div class="panda" onClick="onPandaClick()" />
+</body>
+```
+
+
+
+### `event.preventDefault()`
+
+Prevents the default behavior of any event.
+
+
+
+### `event.stopPropagation()`
+
+Stops the event from bubbling up any further.
+
+
+
+
+### Event Bubbling
+
+Events always occur on a single target. Some events travel up the DOM. This is called bubbling. The even is trigger on the target element's parent node and then on that element's parent and so on until they reach the `HTML` AKA `document` element.
+
+```html
+<div class="links">
+  <a href="" data-fruit="apple">Apple</a>
+  <a href="" data-fruit="orange">orange</a>
+  <a href="" data-fruit="peach">peach</a>
+  <a href="" data-fruit="kiwi">kiwi</a>
+</div>
+```
+
+```js
+document.querySelector('.links').addEventHandler('click', function(event){
+  event.preventDefault()
+  console.log('you clicked on the '+event.target.dataset.fruit)
+})
+```
+
+## Changing styles
+
+Avoid setting styles directly in your JavaScript like this:
+
+```js
+
+var button = document.querySelector('button')
+button.addEventHandler('click', function(event){
+  button.style.backgroundColor = 'red'
+})
+button.addEventHandler('click', function(event){
+  button.style.backgroundColor = 'red'
+})
+
+
 
 ## Associating data with DOM Nodes
 
+
+Never store data on a DOM Node directly, use `node.dataset`
+
+
 ## Console
 
-`console.dir`
+- `console.dir`
+- `$0`
+
 
