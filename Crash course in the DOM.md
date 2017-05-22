@@ -38,12 +38,12 @@ Some attributes can be boolean and appear to have no value. Their very presence 
 
 ##### data attributes
 
-The HTML spec forbids adding arbitrary attributes to any old DOM Node. So if you want a custom attribute prefix it with `data-`.
+The HTML spec forbids adding arbitrary attributes to any'ol DOM Node. So if you want a custom attribute prefix it with `data-`.
 
 For example:
 
 ```html
-<ol>
+<ol class="blog-list">
   <li class="blog-list-member" data-postId="159498">
     …
   </li>
@@ -52,7 +52,6 @@ For example:
   </li>
 </ol>
 ```
-
 
 
 ### Properties
@@ -72,7 +71,7 @@ _NOTE while `checked` is both a property and an attribute, they're distinctly di
 
 ## Tree Structure
 
-You can think of the DOM Tree as a series of nested objects.
+You can think of the [DOM](https://www.w3schools.com/js/js_htmldom.asp) [Tree](https://en.wikipedia.org/wiki/Tree_(data_structure)) as a series of nested objects.
 
 
 So this HTML:
@@ -119,9 +118,7 @@ var fakeDocument = {
 }
 ```
 
-
-
-
+This is almost exactly how the Document Object Model represents the HTML for you in JavaScript.
 
 
 ## Finding elements
