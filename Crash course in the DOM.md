@@ -12,7 +12,7 @@ The type of node: `div`, `a`, `span`, etc.
 
 ### Text Node
 
-A special kind of node representing text between nodes.
+A special kind of node representing text.
 
 
 ## Attributes
@@ -176,7 +176,7 @@ Since a `NodeList` is not an `Array` we cannot do:
 
 ```js
 document.querySelectorAll('.magic-button').forEach(function(button){
-  button.addEventHandler('click', onMagicButtonClick)
+  button.addEventListener('click', onMagicButtonClick)
 })
 ```
 
@@ -185,7 +185,7 @@ instead we have to convert the `NodeList` into an `Array`. Like this:
 
 ```js
 Array.from(document.querySelectorAll('.magic-button')).forEach(function(button){
-  button.addEventHandler('click', onMagicButtonClick)
+  button.addEventListener('click', onMagicButtonClick)
 })
 ```
 
@@ -195,13 +195,13 @@ Array.from(document.querySelectorAll('.magic-button')).forEach(function(button){
 
 ### Binding
 
-Prefer `addEventHandler` over event properties or attributes
+Prefer `addEventListener` over event properties or attributes
 
 You should prefer to do this:
 
 ```js
 var pandaNode = document.querySelector('.panda')
-pandaNode.addEventHandler('click', function(event){
+pandaNode.addEventListener('click', function(event){
   …
 })
 ```
@@ -257,7 +257,7 @@ Events always occur on a single target. Some events travel up the DOM. This is c
 ```
 
 ```js
-document.querySelector('.links').addEventHandler('click', function(event){
+document.querySelector('.links').addEventListener('click', function(event){
   event.preventDefault()
   console.log('you clicked on the '+event.target.dataset.fruit)
 })
@@ -269,7 +269,7 @@ Avoid setting styles directly in your JavaScript like this:
 
 ```js
 var button = document.querySelector('.magic-button')
-button.addEventHandler('click', function(event){
+button.addEventListener('click', function(event){
   button.style.backgroundColor = 'red'
 })
 ```
@@ -278,7 +278,7 @@ instead use classNames:
 
 ```js
 var button = document.querySelector('.toggle-button')
-button.addEventHandler('click', function(event){
+button.addEventListener('click', function(event){
   if (button.classList.contains('toggle-button')){
     button.classList.remove('magic-button-clicked')
   }else{
