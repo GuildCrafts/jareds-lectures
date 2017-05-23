@@ -18,10 +18,10 @@ used to schedule a callback in a given number of milliseconds
 
 ## Async Operations
 
-- `setTimeout`
-- `fs.readFile`
-- `fs.writeFile`
-
+- schedule a callback `setTimeout`
+- read from a file `fs.readFile`
+- write to a file `fs.writeFile`
+- HTTP requests
 
 ## Async Loops
 
