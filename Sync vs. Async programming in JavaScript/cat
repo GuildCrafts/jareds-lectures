@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+
+let frame = 0
+setInterval(function(){
+  // if (frame >= 100) process.exit(1)
+  console.log('FRAME: '+frame)
+  frame++
+
+}, 0)
+
+fs.readFile(process.argv[2], (error, content) => {
+  if (error) {
+    console.error(error)
+    process.exit(1)
+  }else{
+    // console.log('frame => '+frame)
+    // console.log(content.toString())
+    console.log('FAKE FILE CONTENT HERE')
+    process.exit(0)
+  }
+})
+// console.log(process.argv)
