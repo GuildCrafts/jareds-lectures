@@ -263,7 +263,41 @@ document.querySelector('.links').addEventListener('click', function(event){
 })
 ```
 
-## Changing styles
+## DOM Manipulation
+
+### `innerHTML` and `innerText`
+
+Use `innerHTML` to read and write an `HTML` string of the contents of a DOM Node.
+
+Use `innerText` to read and write a `Plain Text` string of the contents of a DOM Node.
+
+When setting the contents of a DOM Node _always_ prefer `innerText` unless your string contains actual HTML Nodes I.E.: `<span>example</span>`
+
+
+### `document.createElement`
+
+```js
+const myThing = document.createElement('div')
+```
+
+### `appendChild`
+
+```js
+const myThing = document.createElement('div')
+myThing.classList.add('my-thing')
+document.querySelector('.place-for-things').appendChild(myThing)
+```
+
+### ClassNames
+
+```js
+var button = document.querySelector('.treasure-chest')
+button.classList.add('treasure-chest-open')
+button.classList.remove('treasure-chest-open')
+button.classList.toggle('treasure-chest-open')
+```
+
+### Changing styles
 
 Avoid setting styles directly in your JavaScript like this:
 
@@ -277,9 +311,9 @@ button.addEventListener('click', function(event){
 instead use classNames:
 
 ```js
-var button = document.querySelector('.toggle-button')
+var button = document.querySelector('.magic-button')
 button.addEventListener('click', function(event){
-  if (button.classList.contains('toggle-button')){
+  if (button.classList.contains('magic-button-clicked')){
     button.classList.remove('magic-button-clicked')
   }else{
     button.classList.add('magic-button-clicked')
