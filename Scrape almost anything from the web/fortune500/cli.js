@@ -3,7 +3,6 @@
 const request = require('request-promise')
 const cheerio = require('cheerio')
 
-
 const HOST = 'http://beta.fortune.com'
 const URL = 'http://beta.fortune.com/fortune500/'
 
