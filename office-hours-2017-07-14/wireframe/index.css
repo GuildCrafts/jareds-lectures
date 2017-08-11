@@ -1,0 +1,44 @@
+* {
+  outline: 1px dotted red;
+}
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+nav{
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 100px;
+  /*background-color*/: red;
+}
+
+main{
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-height: 100px;
+  display: flex;
+  flex-direction: row;
+  /*background-color*/: yellow;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.page-column{
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-width: 1000px;
+  max-width: 1000px;
+  /*background-color*/: purple;
+  min-height: 100px;
+  text-align: center;
+}
+
+footer{
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 100px;
+  /*background-color*/: green;
+}

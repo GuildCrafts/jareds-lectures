@@ -1,0 +1,122 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const Path = require('path')
+const stateFilePath = Path.resolve(process.env.HOME, '.todo')
+
+const command = process.argv[2]
+const input = process.argv.slice(3).join(' ')
+
+const getState = callback => {
+  fs.readFile(stateFilePath, (error, json) => {
+    if (error){
+      if (error.message.includes('no such file or directory')){
+        return callback({})
+      }else{
+        throw error
+      }
+    }
+    let state
+    try{
+      state = JSON.parse(json)
+    }catch(error){
+      state = {}
+    }
+    callback(state)
+  })
+}
+
+const setState = (state, callback) => {
+  fs.writeFile(stateFilePath, JSON.stringify(state), 'utf8', (error) => {
+    if (error) throw error
+    callback()
+  })
+}
+
+const usage = () =>
+  console.warn(
+`
+Usage:
+  todo add "buy some milk"
+  todo list
+  todo complete $TODO_ID
+  todo delete $TODO_ID
+`
+  )
+
+const commands = {
+  add: (state, input, callback) => {
+    state.lastId = state.lastId || 0
+    state[++state.lastId] = {value: input}
+    setState(state, () => {
+      console.log('added item:')
+      console.log(`  ${state.lastId}: ${input}`)
+      callback()
+    })
+  },
+
+  list: (state, input, callback) => {
+    Object.keys(state).forEach(todoId => {
+      if (todoId.match(/^\d+$/)){
+        console.log(`${todoId}: ${state[todoId].complete ? '[X]' : '[ ]'} ${state[todoId].value}`)
+      }
+    })
+    callback()
+  },
+
+  complete: (state, todoId, callback) => {
+    const todo = state[todoId]
+    if (todo){
+      todo.complete = true;
+      setState(state, () => {
+        console.log(`completed: ${todo.value}`)
+      })
+    }else{
+      console.warn(`unable to find todo ${todoId}`)
+      process.exit(1)
+    }
+  },
+
+  uncomplete: (state, todoId, callback) => {
+    const todo = state[todoId]
+    if (todo){
+      todo.complete = false;
+      setState(state, () => {
+        console.log(`uncompleted: ${todo.value}`)
+      })
+    }else{
+      console.warn(`unable to find todo ${todoId}`)
+      process.exit(1)
+    }
+  },
+
+  delete: (state, todoId, callback) => {
+    if (todoId in state){
+      const value = state[todoId].value
+      delete state[todoId]
+      setState(state, () => {
+        console.log(`deleted: ${value}`)
+      })
+    }else{
+      console.warn(`unable to find todo ${todoId}`)
+      process.exit(1)
+    }
+  }
+}
+
+
+getState(function(state){
+  if (command in commands){
+    commands[command](state, input, (error) => {
+      if (error){
+        console.error(error)
+        process.exit(1)
+      }else{
+        process.exit(0)
+      }
+    })
+  }else{
+    usage()
+    process.exit(1)
+  }
+})

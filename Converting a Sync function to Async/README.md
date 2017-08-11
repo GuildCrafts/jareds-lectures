@@ -1,6 +1,11 @@
 # Converting Sync Functions to Async Functions
 
 
+
+
+
+
+
 ## Adding two numbers
 
 
@@ -15,6 +20,7 @@ const add = function(a, b){
 
 const sum = add(100, 34)
 console.log('sum: '+sum)
+// DONE
 ```
 
 #### Asynchronous
@@ -29,6 +35,7 @@ const add = function(a, b, callback){
 add(100, 34, function(sum){
   console.log('sum: '+sum)
 })
+console.log('DONE')
 
 // DONE
 ```
@@ -63,7 +70,6 @@ console.log(
   addTodoListItem('Play more Cornhole')
 )
 
-
 console.log(todoList)
 // DONE
 ```
@@ -80,7 +86,7 @@ const addTodoListItem = function(description, callback){
       complete: false,
       description: description,
     }
-    todoList.push(item)
+    todoLis.push(item)
   }catch(error){
     callback(error)
     return
@@ -133,15 +139,21 @@ const addTodoListItem = function(description, callback){
 addTodoListItem('Watch Rick And Morty S03E02', function(error, item){
   if (error) throw error
   console.log(item)
+
+  addTodoListItem('Practice Rick Impression', function(error, item){
+    if (error) throw error
+    console.log(item)
+
+    addTodoListItem('Play more Cornhole', function(error, item){
+      if (error) throw error
+      console.log(item)
+    })
+
+  })
+
 })
-addTodoListItem('Practice Rick Impression', function(error, item){
-  if (error) throw error
-  console.log(item)
-})
-addTodoListItem('Play more Cornhole', function(error, item){
-  if (error) throw error
-  console.log(item)
-})
+
+console.log('DONE?')
 
 // DONE?
 
