@@ -1,0 +1,9 @@
+
+
+html.grid-yes .page-content{
+  display: grid;
+}
+
+html.grid-no .page-content{
+  display: flexbox;
+}

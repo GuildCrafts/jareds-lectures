@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+// ready from STDIN
+// upper case all the text
+// write to STDOUT
+
+
+process.stdin.setEncoding('utf8');
+
+process.stdin.on('readable', () => {
+  const chunk = process.stdin.read();
+  process.stderr.write('upcase had AN ERROR\n')
+  if (chunk !== null) {
+    process.stdout.write(chunk.toUpperCase());
+  }
+});

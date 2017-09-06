@@ -1,0 +1,16 @@
+{
+  "name": "our-own-test-suite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calculator-test.js",
+  "dependencies": {
+    "chalk": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

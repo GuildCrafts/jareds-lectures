@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+const query = process.argv[2]
+
+// ready from STDIN
+// upper case all the text
+// write to STDOUT
+
+
+process.stdin.setEncoding('utf8');
+
+process.stdin.on('readable', () => {
+  const chunk = process.stdin.read();
+  if (chunk !== null) {
+    chunk.split("\n").forEach(line => {
+      if (line.includes(query)){
+        process.stdout.write(line+"\n");
+      }
+    })
+  }
+});

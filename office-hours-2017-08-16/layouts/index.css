@@ -1,0 +1,45 @@
+* {
+  outline: 1px dotted purple;
+}
+
+html {
+  background-color: orange;
+}
+body {
+  background-color: pink;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pre-header {
+  padding: 1em;
+}
+header {
+  height: 50px;
+}
+header > .header-content {
+  background-color: green;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 10px;
+  height: 30px;
+}
+header.header-fixed > .header-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+main {
+  background-color: yellow;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 1em 0.5em;
+}
+footer {
+  background-color: red;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 1em;
+}
